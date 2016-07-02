@@ -2,18 +2,16 @@ var data = {
 
 }
 
-
 display_data(data);
 
 function display_data(data) {
-    console.log(data);
     //Start template with data list
-    if(data.length > 0) {
+    if(typeof data.post != "undefined" && data.post.length > 0) {
 	    var htm = Defiant.render('post_template', data);
 	    $("#fileDisplayArea").html(htm);
 	}
 
-    //Display a single
+    //Display a single entry
     $("body").on(
         'click',
         '.post_list a',
@@ -25,7 +23,7 @@ function display_data(data) {
         }
     )
 
-    //Edit a single
+    //Got to edit or new entry screen for a single entry
     $("body").on(
         'click',
         '.edit, .new',
@@ -42,11 +40,14 @@ function display_data(data) {
         }
     )
 
+    //Submit a single entry form
     $("body").on(
         'submit',
         '.edit_single',
         function() {
             var form = $('.edit_single').serializeObject();
+
+            //If updating, an id will be present
             if(form.id.length > 0) {
                 for (var i=0; i<data.post.length; i++) {
                   if (data.post[i].id == form.id) {
@@ -57,14 +58,14 @@ function display_data(data) {
                   }
                 }
             } else {
-            	console.log(typeof data.post);
+            	//Insert a new entry
             	if(typeof data.post == "undefined") {
-            		console.log("create");
+            		//This is the very first entry, pre-populate object
             		data = {
             			"post": []
             		}
             	}
-            	console.log(data);
+            	//Push new entry
                 data.post.push({
                     "id": max_id(data)+1,
                     "title": form.title,
@@ -73,9 +74,7 @@ function display_data(data) {
                     "updated": moment().format('YYYY-MM-DD HH:mm'),
                 });
             }
-
             go_home();
-
             return false;
         }
     )
@@ -100,7 +99,7 @@ function display_data(data) {
         'click',
         '.save_all',
         function() {
-            var password = 'dikklepiss';
+            var password = prompt("Please enter your password");
             var encrypted = encrypt(password, data);
             var journal_export = new Blob([encrypted], {type: "text/plain;charset=utf-8"});
             saveAs(journal_export, "storage.txt");
@@ -140,9 +139,8 @@ window.onload = function() {
             var reader = new FileReader();
 
             reader.onload = function(e) {
-                var password = 'dikklepiss';
+                var password = prompt("Please enter your password");
                 var decrypted = decrypt(password, reader.result);
-                console.log(decrypted);
                 display_data(decrypted);
             }
 
