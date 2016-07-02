@@ -1,0 +1,25 @@
+# System files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependencies
+node_modules
+*.node
+
+# Editor setup
+*.sublime-workspace
+*.sublime-project

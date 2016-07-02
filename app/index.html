@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<title>SafeJournal</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/normalize.css" inline>
+		<link rel="stylesheet" href="css/skeleton.css" inline>
+		<link rel="stylesheet" href="css/trumbowyg.min.css" inline>
+		<link rel="stylesheet" href="css/app.css" inline>
+	</head>
+	<body>
+		<div class='container'>
+			<h1>SafeJournal</h1>
+			<div id="fileDisplayArea">
+				<div>
+				    <label>Resume from encrypted file:</label>
+				    <input type="file" id="fileInput" />
+				</div>
+		    	or, start a <a href='' class='new'>New SafeJournal</a>
+			</div>
+		</div>
+		<!-- Defiant templates -->
+		<script type="defiant/xsl-template">
+		    <!-- List -->
+		    <xsl:template name="post_template">
+		    	<a href='' class='new'>New Entry</a>
+		        <ul class='post_list'>
+		            <xsl:for-each select="//post">
+		                <xsl:variable name="id" select="id"/>
+		                <li>
+		                    <a href="{$id}">
+		                        <xsl:value-of select="title"/>
+		                    </a>
+		                     - <xsl:value-of select="created"/>
+		                </li>
+		            </xsl:for-each>
+		        </ul>
+		        <button class='save_all'>Save</button>
+		    </xsl:template>
+
+		    <!-- Single view -->
+		    <xsl:template name="single_template">
+		        <xsl:variable name="id" select="//id"/>
+		        <a href='home'>Home</a>
+		        <h2><xsl:value-of select="//title"/></h2>
+		        <div>
+		        	<xsl:value-of select="//created"/>
+		        </div>
+		        <div>
+		       	 <xsl:value-of select="//entry" disable-output-escaping="yes"/>
+		        </div>
+		        <a href='{$id}' class='edit'>Edit</a>
+		    </xsl:template>
+
+		    <!-- Edit view -->
+		    <xsl:template name="edit_template">
+		        <xsl:variable name="id" select="//id"/>
+		        <xsl:variable name="title" select="//title"/>
+		        <xsl:variable name="created" select="//created"/>
+		        <a href='home'>Home</a>
+		        <form class='edit_single'>
+		            <input name="id" type="hidden" value="{$id}" />
+		            <input name="created" type="hidden" value="{$created}" />
+		            <input class='u-full-width' placeholder='Title' name="title" type="text" value="{$title}" />
+		            <textarea name="entry" class='u-full-width' placeholder='Entry'><xsl:value-of select="//entry" /></textarea>
+		            <input type='submit' value='submit' />
+		        </form>
+		    </xsl:template>
+		</script>
+	</body>
+	<script src="js/jquery-3.0.0.min.js" inline></script>
+	<script src="js/functions.js" inline></script>
+	<script src="js/defiant.min.js" inline></script>
+	<script src="js/FileSaver.min.js" inline></script>
+	<script src="js/CryptoJS.min.js" inline></script>
+	<script src="js/moment-with-locales.min.js" inline></script>
+	<script src="js/trumbowyg.min.js" inline></script>
+	<script src="js/trumbowyg.base64.min.js" inline></script>
+	<script src="js/app.js" inline></script>
+</html>

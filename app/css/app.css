@@ -1,0 +1,6 @@
+.trumbowyg-strong-button::after {
+	content: "B";
+}
+.trumbowyg-base64-button::after {
+	content: "IMG";
+}
