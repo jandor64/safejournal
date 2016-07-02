@@ -14,6 +14,7 @@ Goals
 
 This project meets these goal by providing a **single html file** with inline JavaScript. This file can be placed anywhere - your own server, computer, or even phone. 
 
+
 Process
 -----
  1. A new entry is created on the website, stored in a javascript variable
@@ -21,6 +22,19 @@ Process
  3. A simple text file with only encrypted data is provided for download
  4. On returning, that encrypted file can be read by javascript and the entire journal is set up from scratch.
 
+Adding an entry
+
+![](https://i.imgur.com/rFEoDiY.png)
+
+List of entries
+
+![](https://i.imgur.com/NYd4tUF.png)
+
+Exported file
+
+``{"ct":"c0xfta9OTtSrk+CzkyeJRTOqc1+camNxwmvzGoMSeifEWhsvK1M2MQCXS39tvugwOw/mwHfK8GpWNgF/CzQFBw9coyUsPe0C0uDPDYMRADj6tAjMAuDjBVLJlBtzfkQ3ox0+YsXWMj7nqgW3Io5lbpNFSJTWg1sxsR5Rdka6SGw=","iv":"671ec7444733279541ba08fba58f18ae","s":"807bca9dd9bad8c7"}``
+
+Where CT is encrypted data, IV is initialization vector, and S is the salt. 
 
 Resources
 ---------
