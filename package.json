@@ -1,6 +1,6 @@
 {
   "name": "safe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "license": "ISC",
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-inline-source": "^2.1.0",
+    "gulp-inline-source": "^2.1.0"
   }
 }
