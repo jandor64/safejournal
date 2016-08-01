@@ -5,10 +5,14 @@ var data = {
 display_data(data);
 
 function display_data(data) {
+    var mainDisplay = $("#mainDisplay");
+    var sideDisplay = $("#sideDisplay");
+
     //Start template with data list
     if(typeof data.post != "undefined" && data.post.length > 0) {
 	    var htm = Defiant.render('post_template', data);
-	    $("#fileDisplayArea").html(htm);
+        sideDisplay.html(htm);
+	    mainDisplay.html('');
 	}
 
     //Display a single entry
@@ -18,7 +22,7 @@ function display_data(data) {
         function() {
             var post = JSON.search(data, '//*[id="'+ $(this).attr('href')+ '"]');
             var htm = Defiant.render('single_template', post);
-            $("#fileDisplayArea").html(htm);
+            mainDisplay.html(htm);
             return false;
         }
     )
@@ -30,7 +34,7 @@ function display_data(data) {
         function() {
             var post = JSON.search(data, '//*[id="'+ $(this).attr('href')+ '"]');
             var htm = Defiant.render('edit_template', post);
-            $("#fileDisplayArea").html(htm);
+            mainDisplay.html(htm);
             $.trumbowyg.svgPath = false;
 			$('textarea[name=entry]').trumbowyg({
 			    btns: ['strong', '|', 'base64'],
@@ -82,7 +86,7 @@ function display_data(data) {
     //Display home list
     function go_home() {
     	htm = Defiant.render('post_template', data);
-        $("#fileDisplayArea").html(htm);
+        sideDisplay.html(htm);
     }
 
     $("body").on(
@@ -99,6 +103,7 @@ function display_data(data) {
         'click',
         '.save_all',
         function() {
+            // todo: Change str based on new or existing
             var password = prompt("Please enter your password");
             var encrypted = encrypt(password, data);
             var journal_export = new Blob([encrypted], {type: "text/plain;charset=utf-8"});

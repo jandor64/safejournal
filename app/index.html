@@ -9,13 +9,20 @@
 	</head>
 	<body>
 		<div class='container'>
-			<h1>SafeJournal</h1>
-			<div id="fileDisplayArea">
+			<div class='twelve columns'>
+				<h1>SafeJournal</h1>
+			</div>
+		</div>
+		<div class='container'>
+			<div id="sideDisplay" class='four columns'>
 				<div>
 				    <label>Resume from encrypted file:</label>
 				    <input type="file" id="fileInput" />
 				</div>
 		    	or, start a <a href='' class='new'>New SafeJournal</a>
+			</div>
+			<div id="mainDisplay" class='eight columns'>
+
 			</div>
 		</div>
 		<!-- Defiant templates -->
@@ -34,7 +41,7 @@
 		                </li>
 		            </xsl:for-each>
 		        </ul>
-		        <button class='save_all'>Save</button>
+		        <button class='save_all'>Export</button>
 		    </xsl:template>
 
 		    <!-- Single view -->
@@ -73,7 +80,7 @@
 	<script src="js/FileSaver.min.js" inline></script>
 	<script src="js/CryptoJS.min.js" inline></script>
 	<script src="js/moment-with-locales.min.js" inline></script>
-	<script src="js/trumbowyg.min.js" inline></script>
-	<script src="js/trumbowyg.base64.min.js" inline></script>
+	<script src="js/trumbowyg.js" inline></script>
+	<script src="js/trumbowyg.base64.js" inline></script>
 	<script src="js/app.js" inline></script>
 </html>
