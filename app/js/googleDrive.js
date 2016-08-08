@@ -1,62 +1,51 @@
 // Your Client ID can be retrieved from your project in the Google
 // Developer Console, https://console.developers.google.com
-var CLIENT_ID = '704606213056-k48j3cnoiekrbvn2mp85bbt1clcc0a52.apps.googleusercontent.com';
+var clientId = '704606213056-k48j3cnoiekrbvn2mp85bbt1clcc0a52.apps.googleusercontent.com';
+var apiKey = 'AIzaSyAqgseyOujBN77nDtNCZuQF284A7zGU_Jw';
+var scopes = 'https://www.googleapis.com/auth/drive.file';
 
-var SCOPES = ['https://www.googleapis.com/auth/drive.file'];
+var auth2; // The Sign-In object.
+var authorizeButton = document.getElementById('authorize-button');
+var signoutButton = document.getElementById('signout-button');
 
-/**
- * Check if current user has authorized this application.
- */
-function checkAuth() {
-    gapi.auth.authorize(
-        {
-            'client_id': CLIENT_ID,
-            'scope': SCOPES.join(' '),
-            'immediate': true
-        }, handleAuthResult);
+function handleClientLoad() {
+    // Load the API client and auth library
+    gapi.load('client:auth2', initAuth);
 }
 
-/**
- * Handle response from authorization server.
- *
- * @param {Object} authResult Authorization result.
- */
-function handleAuthResult(authResult) {
-    var authorizeDiv = document.getElementById('authorize-div');
-    if (authResult && !authResult.error) {
-        // Hide auth UI, then load client library.
-        authorizeDiv.style.display = 'none';
-        loadDriveApi();
+function initAuth() {
+    gapi.client.setApiKey(apiKey);
+    gapi.auth2.init({
+        client_id: clientId,
+        scope: scopes
+    }).then(function () {
+      auth2 = gapi.auth2.getAuthInstance();
+      // Listen for sign-in state changes.
+      auth2.isSignedIn.listen(updateSigninStatus);
+      // Handle the initial sign-in state.
+      updateSigninStatus(auth2.isSignedIn.get());
+      authorizeButton.onclick = handleAuthClick;
+      signoutButton.onclick = handleSignoutClick;
+    });
+}
+
+function updateSigninStatus(isSignedIn) {
+    if (isSignedIn) {
+      authorizeButton.style.display = 'none';
+      signoutButton.style.display = 'block';
+      loadDriveApi();
     } else {
-        // Show auth UI, allowing the user to initiate authorization by
-        // clicking authorize button.
-        authorizeDiv.style.display = 'inline';
+      authorizeButton.style.display = 'block';
+      signoutButton.style.display = 'none';
     }
 }
-
-/**
- * Initiate auth flow in response to user clicking authorize button.
- *
- * @param {Event} event Button click event.
- */
 function handleAuthClick(event) {
-    gapi.auth.authorize(
-        {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
-        handleAuthResult);
-    return false;
+    auth2.signIn();
+}
+function handleSignoutClick(event) {
+    auth2.signOut();
 }
 
-/**
- * Initiate auth flow in response to user clicking authorize button.
- *
- * @param {Event} event Button click event.
- */
-function handleLogOutClick(event) {
-    gapi.auth.authorize(
-        {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
-        handleAuthResult);
-    return false;
-}
 
 /**
  * Load Drive API client library.

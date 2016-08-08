@@ -75,14 +75,11 @@
 		</script>
 
 
-		<div id="authorize-div" style="display: none">
-	      <span>Authorize access to Drive API</span>
-	      <!--Button for the user to click to initiate auth sequence -->
-	      <button id="authorize-button" onclick="handleAuthClick(event)">
-	      <button id="logout-button" onclick="handleLogOutClick(event)">
-	        Authorize
-	      </button>
-	    </div>
+		<!--Add buttons to initiate auth sequence and sign out-->
+	    <button id="authorize-button" style="display: none;">Authorize</button>
+	    <button id="signout-button" style="display: none;">Sign Out</button>
+
+	    <div id="content"></div>
 	    <pre id="output"></pre>
 	</body>
 	<script src="js/jquery-3.0.0.min.js" inline></script>
@@ -94,6 +91,6 @@
 	<script src="js/trumbowyg.js" inline></script>
 	<script src="js/trumbowyg.base64.js" inline></script>
 	<script src="js/googleDrive.js" inline></script>
+	<script src="https://apis.google.com/js/api.js?onload=handleClientLoad"></script>
 	<script src="js/app.js" inline></script>
-	<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 </html>
