@@ -1,5 +1,5 @@
 ## SafeJournal ##
-
+test
 SafeJournal is written from the ground up for security and peace of mind. This is a personal project made to satisfy a few key goals that no other platform was providing.
 
 [Download](https://raw.githubusercontent.com/jandor64/safejournal/master/dist/index.html)
